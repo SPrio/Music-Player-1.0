@@ -23,44 +23,38 @@ function playPause() {
     pPause.src = "./assets/images/pause_icon.png";
     thumbnail.style.transform = "scale(1.15)";
 
-    
     // Show loading animation.
     var playPromise = song.play();
+    document.title = songTitle[songIndex];
+    playing = false;
 
     if (playPromise !== undefined) {
       playPromise
         .then((_) => {
-          playing = false;
+          pPause.src = "./assets/images/play_icon.png";
+          thumbnail.style.transform = "scale(1)";
+
+          // Show loading animation.
+          song.pause();
+
+          playing = true;
           // Automatic playback started!
           // Show playing UI.
+          song.pause();
         })
         .catch((error) => {
           // Auto-play was prevented
           // Show paused UI.
         });
     }
-    
   } else {
     pPause.src = "./assets/images/play_icon.png";
     thumbnail.style.transform = "scale(1)";
 
-    
-    
     // Show loading animation.
-    var playPromise = song.pause();
+    song.pause();
 
-    if (playPromise !== undefined) {
-      playPromise
-        .then((_) => {
-          playing = true;
-          // Automatic playback started!
-          // Show playing UI.
-        })
-        .catch((error) => {
-          // Auto-play was prevented
-          // Show paused UI.
-        });
-    }
+    playing = true;
   }
 }
 
@@ -72,7 +66,7 @@ song.addEventListener("ended", function () {
 // function where songIndex is incremented, song/thumbnail image/background image/song artist/song title changes to next index value, and playPause() runs to play next track
 function nextSong() {
   songIndex++;
-  if (songIndex > 1) {
+  if (songIndex > 0) {
     songIndex = 0;
   }
   song.src = songs[songIndex];
@@ -89,8 +83,8 @@ function nextSong() {
 // function where songIndex is decremented, song/thumbnail image/background image/song artist/song title changes to previous index value, and playPause() runs to play previous track
 function previousSong() {
   songIndex--;
-  if (songIndex < 0) {
-    songIndex = 1;
+  if (songIndex < 1) {
+    songIndex = 0;
   }
   song.src = songs[songIndex];
   thumbnail.src = thumbnails[songIndex];
