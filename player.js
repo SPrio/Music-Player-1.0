@@ -27,20 +27,11 @@ function playPause() {
     var playPromise = song.play();
     document.title = songTitle[songIndex];
     playing = false;
-
     if (playPromise !== undefined) {
       playPromise
         .then((_) => {
-          pPause.src = "./assets/images/play_icon.png";
-          thumbnail.style.transform = "scale(1)";
-
-          // Show loading animation.
-          song.pause();
-
-          playing = true;
           // Automatic playback started!
           // Show playing UI.
-          song.pause();
         })
         .catch((error) => {
           // Auto-play was prevented
@@ -52,9 +43,19 @@ function playPause() {
     thumbnail.style.transform = "scale(1)";
 
     // Show loading animation.
-    song.pause();
-
+    var playPromise = song.pause();
     playing = true;
+    if (playPromise !== undefined) {
+      playPromise
+        .then((_) => {
+          // Automatic playback started!
+          // Show playing UI.
+        })
+        .catch((error) => {
+          // Auto-play was prevented
+          // Show paused UI.
+        });
+    }
   }
 }
 
