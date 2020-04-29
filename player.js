@@ -9,9 +9,7 @@ let pPause = document.querySelector("#play-pause"); // element where play and pa
 
 songIndex = 0;
 songs = ["./assets/music/Ignite.mp3"]; // object storing paths for audio objects
-thumbnails = [
-  "./assets/images/ignite_album_cover.jpg"
-]; // object storing paths for album covers and backgrounds
+thumbnails = ["./assets/images/ignite_album_cover.jpg"]; // object storing paths for album covers and backgrounds
 songArtists = ["Alan Walker"]; // object storing track artists
 songTitles = ["Ignite"]; // object storing track titles
 
@@ -25,14 +23,44 @@ function playPause() {
     pPause.src = "./assets/images/pause_icon.png";
     thumbnail.style.transform = "scale(1.15)";
 
-    song.play();
-    playing = false;
+    
+    // Show loading animation.
+    var playPromise = song.play();
+
+    if (playPromise !== undefined) {
+      playPromise
+        .then((_) => {
+          playing = false;
+          // Automatic playback started!
+          // Show playing UI.
+        })
+        .catch((error) => {
+          // Auto-play was prevented
+          // Show paused UI.
+        });
+    }
+    
   } else {
     pPause.src = "./assets/images/play_icon.png";
     thumbnail.style.transform = "scale(1)";
 
-    song.pause();
-    playing = true;
+    
+    
+    // Show loading animation.
+    var playPromise = song.pause();
+
+    if (playPromise !== undefined) {
+      playPromise
+        .then((_) => {
+          playing = true;
+          // Automatic playback started!
+          // Show playing UI.
+        })
+        .catch((error) => {
+          // Auto-play was prevented
+          // Show paused UI.
+        });
+    }
   }
 }
 
