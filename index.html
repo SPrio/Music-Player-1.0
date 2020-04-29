@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Music Player</title>
+    <link rel="stylesheet" href="player.css">
+  </head>
+  <body>
+    <img src="./assets/images/ignite_album_cover.jpg" id="background" />
+    <audio src="./assets/music/Ignite.mp3" id="song"></audio>
+    <div class="container">
+      <div class="box"></div>
+      <img src="./assets/images/ignite_album_cover.jpg" id="thumbnail" />
+      <img
+        src="./assets/images/play_icon.png"
+        onclick="playPause()"
+        id="play-pause"
+      />
+      <img
+        src="./assets/images/forward_icon.png"
+        onclick="nextSong()"
+        id="next-song"
+      />
+      <img
+        src="./assets/images/backward_icon.png"
+        onclick="previousSong()"
+        id="previous-song"
+      />
+      <div class="song-artist">Alan Walker</div>
+      <div class="song-title">Ignite</div>
+      <!-- Input element for progress bar - min=0 starting value of  
+    every song - max length will change per song so leave empty -->
+      <input
+        type="range"
+        id="progress-bar"
+        min="0"
+        max=""
+        value="0"
+        onchange="changeProgressBar()"
+      />
+      <div class="currentTime"></div>
+      <div class="durationTime"></div>
+    </div>
+    <script src="player.js"></script>
+  </body>
+</html>
