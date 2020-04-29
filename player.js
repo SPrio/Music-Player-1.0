@@ -25,7 +25,7 @@ function playPause() {
 
     // Show loading animation.
     var playPromise = song.play();
-    document.title = songTitle[songIndex];
+    document.title = songTitles[0];
     playing = false;
     if (playPromise !== undefined) {
       playPromise
